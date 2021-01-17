@@ -1,5 +1,5 @@
 import logo from './logo.svg';
-import{useState}from "react"
+import{useState, useEffect}from "react"
 import './App.css';
 import { AppBar, Toolbar, IconButton, Typography, Button } from '@material-ui/core';
 import MenuIcon from '@material-ui/icons/Menu';
@@ -11,9 +11,15 @@ const DAY = HOUR * 24; // 24 hours per day
 
 function App() {
   let [currentTime, setCurrentTime]=useState (new Date())
-  setInterval(() => {
-    setCurrentTime(new Date())
-  },1000)
+  useEffect(()=>{
+    console.log("creating interval")
+    
+    const interval = setInterval(() => {
+      setCurrentTime(new Date())
+      clearInterval(interval);
+    },1000)
+
+  });
 
   let targetDay = new Date(Date.parse("03 August 2021 00:00:00 PST"))
   let diffTime = Math.abs (targetDay - currentTime)
@@ -24,7 +30,7 @@ function App() {
   let diffSeconds = Math.abs(Math.floor ((diffTime % MINUTE) / SECOND))
   // console.log(diffTime)
   return (
-    <div className="App" style={{backgroundColor: "transparent"}}>
+    <div className="App" >
       <AppBar position="static">
         <Toolbar>
           <IconButton edge="start" color="inherit" aria-label="menu">
@@ -36,12 +42,12 @@ function App() {
           <Button color="inherit">Login</Button>
         </Toolbar>
       </AppBar>
-      <header className="App-header" style={{backgroundColor: "transparent"}}>
+      
+      <header className="App-header" style={{backgroundImage:"url('/wick-bg.jpg')",backgroundSize:"cover",backgroundPosition: "center" }}>
         {/* <img src={logo} className="App-logo" alt="logo" /> */}
         <p>
-          Edit <code>src/App.js</code> and save to reload.
-          i can't wait to see john wick
-          You are doing amazing!
+          makoto is the killer
+
         </p>
         <div>
           {diffDays.toString()}{" Days "}
