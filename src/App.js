@@ -1,14 +1,20 @@
 import logo from './logo.svg';
 import{useState, useEffect}from "react"
 import './App.css';
-import { AppBar, Toolbar, IconButton, Typography, Button } from '@material-ui/core';
+import { AppBar, Toolbar, IconButton, Typography, Button } from '@material-ui/core'; 
+import { createMuiTheme, makeStyles, ThemeProvider } from '@material-ui/core/styles';
 import MenuIcon from '@material-ui/icons/Menu';
+import CssBaseLine from '@material-ui/core/CssBaseline';
 
 const SECOND = 1000; // each second is 1000 miliseconds
 const MINUTE = SECOND * 60; // 60 seconds per minute
 const HOUR = MINUTE * 60; // 60 minutes per hour
 const DAY = HOUR * 24; // 24 hours per day
-
+const theme = createMuiTheme({
+  palette: {
+    type: "light",
+  },
+});
 function App() {
   let [currentTime, setCurrentTime]=useState (new Date())
   useEffect(()=>{
@@ -30,6 +36,8 @@ function App() {
   let diffSeconds = Math.abs(Math.floor ((diffTime % MINUTE) / SECOND))
   // console.log(diffTime)
   return (
+    <ThemeProvider theme={theme}>
+      <CssBaseLine/>
     <div className="App" >
       <AppBar position="static">
         <Toolbar>
@@ -74,6 +82,7 @@ function App() {
         </a>
       </header>
     </div>
+    </ThemeProvider>
   );
 }
 
